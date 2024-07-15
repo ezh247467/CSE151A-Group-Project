@@ -14,30 +14,31 @@ Material Advantage is in the range of [-39, 39] and can be normalized into a sma
 \
 Development of pieces will be scored using our own evaluation function (the criteria for scoring can be read below) and weighted on a 0-100 scale (where positive is white and negative is black like material advantage). This also can be normalized to a [-1,1] scale.
 \
-The Evaluation score by Stockfish is a bit tricky. Due to a depth of 22, we may see abnormally large evaluation scores (greater than 300) which would greatly affect the scale and putting the distribution at a very difficult to predict area. In addition, the Evaluation data includes forced mate notation, which provides a number moves necessary to achieve checkmate rather than a number to evaluate the position.
+The Evaluation score by Stockfish is a bit tricky. Firstly, it is measured in centipawns, so 100 = 1 pawn. Secondly, due to the version of Stockfish that was used to collect this data, which is 11 compared to the present time at 16, we may see abnormally large evaluation scores (greater than 3900) which would greatly affect the scale and putting the distribution at a very difficult to predict area and there may be large discrepancies between our evaluation of development and this Stockfish evaluation. Lastly, the Evaluation data includes forced mate notation, which provides a number moves necessary to achieve checkmate rather than a number to evaluate the position.
 
 ## Data Preprocessing
-For our 'material advantage' and 'development of pieces' features, we will normalize our values to [-1, 1] for both attributes as it should save on computational resources since we will be computing with smaller numbers while preserving the scale. As for the Evaluation values, due to the incredible discrepancy and gaps in values, we believe that limiting the values to $\pm300$ and having any forced checkmates be equal to those max/min values. Given that an evaluation of (the absolute value of) anything greater than 39 would imply a similar advantage of the maximum material advantage, we believe there would be no significant impact if we were to equate any forced checkmate evaluation to be the same as a 300 point evaluation.
+For our 'material advantage' and 'development of pieces' features, we will normalize our values to [-1, 1] for both attributes as it should save on computational resources since we will be computing with smaller numbers while preserving the scale. As for the Evaluation values, due to the incredible discrepancy and gaps in values, we believe that limiting the values to $\pm3900$ and having any forced checkmates be equal to those max/min values. Given that an evaluation of (the absolute value of) anything greater than 39 would imply a similar advantage of the maximum material advantage, we believe there would be no significant impact if we were to equate any forced checkmate evaluation to be the same as a 3900 point evaluation.
 
 ## Development of Pieces
 #### The following function will check how well "developed" a player's core pieces are. There are many factors<sup>[^1]</sup> to this attribute, so our evaluation would certainly not be the most accurate. We also have our own arbitrary weights for evaluating as we cannot be completely sure how much "better developed" a piece is in relation to other types of pieces. The criteria that we will keep in mind for our evaluation function are the following.
 - Queen
-  - Penalty for early game development (first 5 moves) (0% - 5%)
-  - **Queen mobility** (15%, 20% if midgame)
+  - Penalty for early game development (first 5 moves) (0%, 5% if early game)
+  - **Queen mobility** (15%, 20% if not early game)
 - Pawn
   - ~~Pawn structure~~ (Difficult and computationally expensive to evaluate)
-  - **Pawn Center** (d4 or e4 defended by pawns or creating a double pawn on either d or e columns) (10%)
-  - Penalty for "d" and "e" pawns being blocked at their starting squares (10%)
-  - Late game (25+ moves): Penalty for pawns that are still near start position (0% - 5%)
+  - **Pawn Center** (d4 or e4) (10%, 5% if late game)
+  - Penalty for "d" and "e" pawns being blocked at their starting squares, but no penalty if other pawns can go to the center instead (10%, 5% if late game)
+  - Late game (25+ moves): Penalty for pawns that are still near start position (0%, 10% if late game)
 - Knight
-  - Less value if there are less pawns (5%)
   - **Knight mobility** (15%)
-  - Penalty if undefended (10%)
+  - Penalty if undefended (15%)
+  - No weight if at start position
 - Bishop
-  - **Bishop mobility** (greater emphasis on forward mobility) (15%)
+  - **Bishop mobility** (15%)
   - Bishop pair is considered marginally stronger than Bishop Knight and Knight Knight (5%)
   - ~~Color Weakness (missing a bishop and poor pawn structure)~~ (See Pawn)
   - Penalty if undefended (10%)
+  - Quarter weight if at start position
 
 > **Mobility omits squares controlled by enemy pawns**
 
