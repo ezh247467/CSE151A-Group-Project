@@ -5,7 +5,7 @@ Noah Danan \
 ## Introduction
 Chess is a popular game that uses strategic thinking and tactical prowess, played for centuries and still counting. This dataset that we will be using comprises approximately 16 million unique chess positions, each evaluated by the Stockfish chess engine at a depth of 22. Stockfish, a state-of-the-art chess analysis tool, provides precise and detailed evaluations of positions, making this dataset highly valuable for research in artificial intelligence, game theory, and machine learning. The extensive depth of 22 ensures a deep and thorough analysis of each position, offering insights into optimal moves and strategies. This dataset can be instrumental in training advanced machine learning models, developing new chess algorithms, and conducting comprehensive studies on chess strategy and position evaluation.
 ## Data Exploration
-### Since our dataset's only independent variable does not work well as either a continuous value or categorical variable, we will be extracting information from it.
+### Since our dataset's only independent variable, an FEN<sup>[^1]</sup> string, does not work well as either a continuous value or categorical variable, we will be extracting information from it.
 
 The two main features we will be extracting from the chess position are **material advantage** (continuous value) and **development of the pieces** (can be scored into a continuous value). These two attributes will be the data we will use for our modeling as the independent variable to predict the Evaluation Score that has been provided by Stockfish.
 
@@ -20,7 +20,7 @@ The two main features we will be extracting from the chess position are **materi
 For our 'material advantage' and 'development of pieces' features, we will normalize our values to [-1, 1] for both attributes as it should save on computational resources since we will be computing with smaller numbers while preserving the scale. As for the Evaluation values, due to forced checkmates not having any real assigned values, we believe that encoding them to $\pm10000$ (the max/min before normalizing) would serve as an indicator that they are above any other position. This way we will know which data points are the forced checkmate positions if they were to be plotted.
 
 ## Development of Pieces
-#### The following function will check how well "developed" a player's core pieces are. There are many factors<sup>[^1]</sup> to this attribute, so our evaluation would certainly not be the most accurate. We also have our own arbitrary weights for evaluating as we cannot be completely sure how much "better developed" a piece is in relation to other types of pieces. The criteria that we will keep in mind for our evaluation function are the following.
+#### The following function will check how well "developed" a player's core pieces are. There are many factors<sup>[^2]</sup> to this attribute, so our evaluation would certainly not be the most accurate. We also have our own arbitrary weights for evaluating as we cannot be completely sure how much "better developed" a piece is in relation to other types of pieces. The criteria that we will keep in mind for our evaluation function are the following.
 - Queen
   - Penalty for early game development (first 5 moves) (0%, 5% if early game)
   - **Queen mobility** (15%, 20% if not early game)
@@ -42,8 +42,8 @@ For our 'material advantage' and 'development of pieces' features, we will norma
 
 > **Mobility omits squares controlled by enemy pawns**
 
-
-[^1]: https://www.chessprogramming.org/Evaluation_of_Pieces
+[^1]: https://www.wikiwand.com/en/Forsyth%E2%80%93Edwards_Notation
+[^2]: https://www.chessprogramming.org/Evaluation_of_Pieces
 
 ## Scatterplots of Features
 ![](Images/material_advantage.png)
