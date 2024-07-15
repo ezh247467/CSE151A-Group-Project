@@ -44,3 +44,8 @@ For our 'material advantage' and 'development of pieces' features, we will norma
 
 
 [^1]: https://www.chessprogramming.org/Evaluation_of_Pieces
+
+## Scatterplots of Features
+![](Images/material_advantage.png)
+![](Images/development.png)
+\* Note that the line of data points that are at the max and min of the graphs are the respective forced checkmates belonging to either White (max) or Black (min)
