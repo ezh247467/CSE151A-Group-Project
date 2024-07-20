@@ -42,6 +42,12 @@ For our 'material advantage' and 'development of pieces' features, we will norma
 
 > **Mobility omits squares controlled by enemy pawns**
 
+## Modeling Questions
+Where does your model fit in the fitting graph?<br>
+Because we are using linear regression for our first model, when looking at our fitting graph, the model would fit towards the beginning of the graph. This is because we are using a simple model and there is a higher chance of error.<br><br>
+What are the next models you are thinking of and why?<br>
+Next, we are thinking of doing a neural network for our model because it will likely be most compatible with the data and our data is erratic so in order to better fit with the data, it will be good to have multiple activation functions.
+
 ## Scatterplots of Features
 ![](Images/material_advantage.png)
 ![](Images/development.png)
@@ -49,3 +55,9 @@ For our 'material advantage' and 'development of pieces' features, we will norma
 
 [^1]: https://www.wikiwand.com/en/Forsyth%E2%80%93Edwards_Notation
 [^2]: https://www.chessprogramming.org/Evaluation_of_Pieces
+
+## Linear Regression, First Model
+#### Ground Truth
+Our ground truth in our data was garnered from Stock Fish evaluations, which is the most advanced chess evaluation system. 
+#### Training the Model
+We started by splitting our data into an 80:20 ratio, 80 percent training with 20 percent testing. Then we ran our linear regression on the model. We will then do k-fold cross validation in order to validate our linear regression.
