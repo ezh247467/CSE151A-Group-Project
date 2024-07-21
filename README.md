@@ -61,3 +61,8 @@ Next, we are thinking of doing a neural network for our model because it will li
 Our ground truth in our data was garnered from Stock Fish evaluations, which is the most advanced chess evaluation system. 
 #### Training the Model
 We started by splitting our data into an 80:20 ratio, 80 percent training with 20 percent testing. Then we ran our linear regression on the model. We will then do k-fold cross validation in order to validate our linear regression.
+
+## Conclusion
+#### First Model
+After viewing the graphical data, we have concluded that the linear regression model is not ideal.<br>
+In order to improve said model, we are planning to use a neural network to try and achieve a better MSE.
