@@ -50,7 +50,7 @@ Next, we are thinking of doing a neural network for our model because it will li
 
 ## Scatterplots of Features
 ![](Images/material_advantage.png)
-![](Images/development.png)
+![](Images/development.png) <br>
 \* Note that the line of data points that are at the max and min of the graphs are the respective forced checkmates belonging to either White (max) or Black (min)
 
 [^1]: https://www.wikiwand.com/en/Forsyth%E2%80%93Edwards_Notation
