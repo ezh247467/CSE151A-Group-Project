@@ -66,5 +66,5 @@ Here is an example of one iteration of our cross validation:
 ![](Images/Linreg_development.png)
 
 #### Conclusion
-After viewing the graphical data and MSE, we have concluded that the linear regression model is not ideal due to erractic placements of our datapoints.<br>
-In order to improve said model, we are planning to use a neural network to try and achieve a better MSE with its ability to create a more general graph through the use of multiple activation functions.
+After viewing the graphical data and MSE, we have concluded that not only the linear regression model is not ideal, but trying to minimize MSE for this type of problem is very unlikely to work due to erractic placements of our datapoints.<br>
+Instead of using MSE as our scoring function, we plan to reform the data and change the problem into a classification problem to get better results. For this new problem, we believe a Neural network or SVM would be best to use.
