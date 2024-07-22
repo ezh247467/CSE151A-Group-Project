@@ -65,7 +65,7 @@ Next, we are thinking of doing a neural network for our model because it will li
 #### Ground Truth
 Our ground truth in our data was garnered from Stock Fish 11 evaluations, which was the most advanced chess evaluation system at the time of the dataset's conception, and much stronger than any human player. 
 #### Training the Model
-We started by splitting our data into an 80:20 ratio, 80 percent training with 20 percent testing. Then we ran our linear regression on the model. We will then do 10-fold cross validation in order to validate our linear regression. <br>
+We started by splitting our data into an 90:10 ratio, 90 percent training with 10 percent testing. Then we ran our linear regression on the model. We then do 10-fold cross validation in order to validate our linear regression while also ensuring the same train test split. <br>
 Here is an example of one iteration of our cross validation:
 ![](Images/Linreg_material_advantage.png)
 ![](Images/Linreg_development.png)
