@@ -66,8 +66,8 @@ Here is an example of one iteration of our cross validation:
 ![](Images/Linreg_development.png)
 
 #### Conclusion
-After viewing the graphical data and MSE, we have concluded that not only the linear regression model is not ideal, but trying to minimize MSE for this type of problem is very unlikely to work due to erractic placements of our datapoints.<br>
-Instead of using MSE as our scoring function, we plan to reform the data and change the problem into a classification problem to get better results. For this new problem, we believe a Neural network or SVM would be best to use.
+After viewing the graphical data and MSE, we have concluded that not only the linear regression model is not ideal, but trying to minimize MSE for this type of problem is very unlikely to work due to erractic placements of our datapoints. We also found it difficult to fully utilize linear regression modeling with our independent variables since getting different linear functions does not really help much with the goal of predicting position evaluations. <br>
+Instead of using MSE as our scoring function, we plan to reform the data and change the problem into a classification problem to get better results. For this new problem, we believe a Neural Network or SVM would be best to use.
 
 ## Modeling Questions
 Where does your model fit in the fitting graph?<br>
