@@ -7,12 +7,16 @@ Chess is a popular game that uses strategic thinking and tactical prowess, playe
 ## Data Exploration
 ### Since our dataset's only independent variable, an FEN<sup>[^1]</sup> string, does not work well as either a continuous value or categorical variable, we will be extracting information from it.
 
-The two main features we will be extracting from the chess position are **material advantage** (continuous value) and **development of the pieces** (can be scored into a continuous value). These two attributes will be the data we will use for our modeling as the independent variable to predict the Evaluation Score that has been provided by Stockfish.
+The two main features we will be extracting from the chess position are **material advantage** (continuous value) and **development of the pieces** (can be scored into a continuous value). These two attributes will be the data we will use for our modeling as the independent variable to predict the Evaluation Score that has been provided by Stockfish. As a subset of the **development of pieces** features, we will also include the features: **Mobility** and **Safety** to possibly help our Neural Network classify the positions better. They are also heuristics that many chess engines and programmers use for evaluation positions, so it is safe to say that they should at least not hold back the training of the Neural Network.
 
 ---
 - Material Advantage is a comparison between the pieces that each player holds. Pawns are worth 1, bishops and knights are worth 3, rooks are worth 5, and the Queen is worth 9. While having the matieral advantage is not a consistent indicator if a position is winning, most casual players find this metric reassuring and helpful. The material advantage is in the range of [-39, 39] and can be normalized into a smaller scale, such as [-1, 1]. 
 
 - Development of pieces will be scored using our own evaluation function (the criteria for scoring can be read [below](#development-of-pieces)) and weighted on a 0-100 scale (where positive is white and negative is black like material advantage). This also can be normalized to a [-1,1] scale.
+
+- Mobility is calculated as the difference between how many spaces each color's pieces can go to (not including spaces the opposing pawns control). We use difference to show that positive numbers means White pieces have greater mobility overall and vice versa for Black.
+
+- Safety is calculated as the difference between how many of each color's pieces are defended, where positive number means there are more White pieces that are defended and vice versa for Black.
 
 - The Evaluation score by Stockfish is a bit tricky. Firstly, it is measured in centipawns, so 100 = 1 pawn. Secondly, due to the version of Stockfish that was used to collect this data, which is 11 compared to the present time at 16, we may see abnormally large evaluation scores (greater than 3900) which would greatly affect the scale and putting the distribution at a very difficult to predict area and there may be large discrepancies between our evaluation of development and this Stockfish evaluation. Lastly, the Evaluation data includes forced mate notation, which provides a number moves necessary to achieve checkmate rather than a number to evaluate the position.
 
@@ -49,18 +53,17 @@ We will separate the evaluations into 3 classes: White (is winning), Black (is w
 
 > **Mobility omits squares controlled by enemy pawns**
 
-## Scatterplots of Features
-![](Images/material_advantage.png)
-![](Images/development.png) <br>
-\* Note that the line of data points that are at the max and min of the graphs are the respective forced checkmates belonging to either White (max) or Black (min)
+## Pairplot of Features
+![](Images/PairPlot.png) <br>
+\* Note that the line of data points that are at the max and min of the graphs (pertaining to graphs where Evaluation is involved) are the respective forced checkmates belonging to either White (max) or Black (min)
 <br><br>
-Our two scatterplots show the two individual features we extracted, material advantage and development, and how they correlate to the dependent variable, evaluation. As we can see, material advantage seems to have a more positive correlation, which makes sense, but for development the correlation is a lot weaker.
+We have created a pairplot to look at how the different features we've extracted from the FEN string correlate to each other, and most importantly, how they correlate to our ground truth variable: Evaluation. In order to help visualize our data, we've also color-coded the data points to differentiate the ones that represent a position where White is winning, Black is winning, or if the position is basically drawn. From what we are able to sumrise, many of the features show very weak correlations with each other with only the correlation between 'material advantage' and 'safety' being significantly strong. This truly shows how difficult it is to properly evaluate chess positions as many heuristics that strong chess engines and their programmers use that have been included here still cannot find a significantly strong correlation with each other or toward the ground truth provided. Nonetheless, we will continue to try to create a model that can have some degree of accuracy at predicting positional advantage.
 
 ## Linear Regression, First Model
 #### Ground Truth
 Our ground truth in our data was garnered from Stock Fish 11 evaluations, which was the most advanced chess evaluation system at the time of the dataset's conception, and much stronger than any human player. 
 #### Training the Model
-We started by splitting our data into an 90:10 ratio, 90 percent training with 10 percent testing. Then we ran our linear regression on the model. We then do 10-fold cross validation in order to validate our linear regression while also ensuring the same train test split. <br>
+We started by splitting our data into an 90:10 ratio, 90 percent training with 10 percent testing. Then we ran our linear regression on the model, but only for our two main features: material advantage and development. We then do 10-fold cross validation in order to validate our linear regression while also ensuring the same train-test split. <br>
 Here is an example of one iteration of our cross validation:
 ![](Images/Linreg_material_advantage.png)
 ![](Images/Linreg_development.png)
