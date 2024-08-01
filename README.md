@@ -1,7 +1,8 @@
 # CSE151A-Group-Project
 Ethan Huang \
 Noah Danan \
-[Juypter Notebook](Group_Project.ipynb)
+[Juypter Notebook](Group_Project.ipynb) \
+[Final Written Report](Written_Report.md)
 ## Introduction
 Chess is a popular game that uses strategic thinking and tactical prowess, played for centuries and still counting. This dataset that we will be using comprises approximately 16 million unique chess positions, each evaluated by the Stockfish chess engine at a depth of 22. Stockfish, a state-of-the-art chess analysis tool, provides precise and detailed evaluations of positions, making this dataset highly valuable for research in artificial intelligence, game theory, and machine learning. The extensive depth of 22 ensures a deep and thorough analysis of each position, offering insights into optimal moves and strategies. This dataset can be instrumental in training advanced machine learning models, developing new chess algorithms, and conducting comprehensive studies on chess strategy and position evaluation. For our purposes, we will be using this dataset to create a model that predicts how good or bad the position is for the player, mainly in the form of whether they are winning or not, or whether a draw is still possible.
 ## Data Exploration
@@ -28,7 +29,7 @@ We found that normalizing our independent variables did not serve to have much i
 We will now extract an additional feature from our dataset, which will be used for classification. We will classify positions by whether they are winning for either player or estimated to be a draw, which gives us a total of 3 classes. We will be using one hot encoding so we can predict these classes using our four features with a neural network.
 
 ## Classifying Evaluation
-We will separate the evaluations into 3 classes: White (is winning), Black (is winning), and Draw. Typically speaking, an evaluation of $\pm{2.0}$ is considered a great enough advantage to be converted into a win as long as the player places accurately. Therefore, we will consider 200 centipawns as the threshold for winning.
+We will separate the evaluations into 3 classes: White (is winning), Black (is winning), and Draw. Typically speaking, an evaluation of $\pm{2.0}$ is considered a great enough advantage to be converted into a win as long as the player places accurately. Therefore, we will consider 200 centipawns as the threshold to consider White or Black to be winning and evaluations with less than that threshold would be considered drawn.
 
 ## Development of Pieces
 #### The following function will check how well "developed" a player's core pieces are. There are many factors<sup>[^2]</sup> to this attribute, so our evaluation would certainly not be the most accurate. We also have our own arbitrary weights for evaluating as we cannot be completely sure how much "better developed" a piece is in relation to other types of pieces. The criteria that we will keep in mind for our evaluation function are the following.
