@@ -32,7 +32,7 @@ We will now extract an additional feature from our dataset, which will be used f
 We will separate the evaluations into 3 classes: White (is winning), Black (is winning), and Draw. Typically speaking, an evaluation of $\pm{2.0}$ is considered a great enough advantage to be converted into a win as long as the player places accurately. Therefore, we will consider 200 centipawns as the threshold to consider White or Black to be winning and evaluations with less than that threshold would be considered drawn.
 
 ## Development of Pieces
-#### The following function will check how well "developed" a player's core pieces are. There are many factors<sup>[^2]</sup> to this attribute, so our evaluation would certainly not be the most accurate. We also have our own arbitrary weights for evaluating as we cannot be completely sure how much "better developed" a piece is in relation to other types of pieces. The criteria that we will keep in mind for our evaluation function are the following.
+#### The following criteria will check how well "developed" a player's core pieces are. There are many factors<sup>[^2]</sup> to this attribute, so our evaluation would certainly not be the most accurate. We also have our own arbitrary weights for evaluating as we cannot be completely sure how much "better developed" a piece is in relation to other types of pieces. The criteria that we will keep in mind for our evaluation function are the following.
 - Queen
   - Penalty for early game development (first 5 moves) (0%, 5% if early game)
   - **Queen mobility** (15%, 20% if not early game)
